@@ -8,7 +8,7 @@ integerSqrt :: Integer -> Integer
 integerSqrt = floor . sqrt . fromIntegral
 
 complement :: Integer -> Integer -> [Integer]
-complement n x = if x ^ 2 /= n then [n `div` x, n] else [x]
+complement n x = if x ^ 2 /= n then [n `div` x, x] else [x]
 
 factors :: Integer -> Int 
 factors n = length (concat [complement n x | x <- [1..integerSqrt n], mod n x == 0])
