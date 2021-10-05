@@ -3,18 +3,17 @@ programu powinna wynosić O(p + k), gdzie p – największy dzielnik n mniejszy 
 dzielników n. -}
 
 module Main where
-import Data.List ()
 
 integerSqrt :: Integer -> Integer
 integerSqrt = floor . sqrt . fromIntegral
 
-factors1 :: Integer -> [Integer]
-factors1 n = [x | x <- [1..integerSqrt n], mod n x == 0] -- O(sqrt(n))
+complement :: Integer -> Integer -> [Integer]
+complement n x = if x ^ 2 /= n then [n `div` x, n] else [x]
 
-factors2 :: Integer -> [Integer] -> [Integer]
-factors2 n list = list ++ [n `div` x | x <- reverse list, x ^ 2 /= n] -- O(length (factors1 n))
+factors :: Integer -> Int 
+factors n = length (concat [complement n x | x <- [1..integerSqrt n], mod n x == 0])
 
 main :: IO ()
 main = do print "Enter the number:"
           n <- readLn 
-          print (length(factors2 n (factors1 n)))
+          print (factors n)
