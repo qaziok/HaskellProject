@@ -7,11 +7,19 @@ module Main where
 integerSqrt :: Integer -> Integer
 integerSqrt = floor . sqrt . fromIntegral
 
+-- OLD
 complement :: Integer -> Integer -> [Integer]
 complement n x = if x ^ 2 /= n then [n `div` x, x] else [x]
 
-factors :: Integer -> Int 
+factors :: Integer -> Int
 factors n = length (concat [complement n x | x <- [1..integerSqrt n], mod n x == 0])
+
+-- NEW
+addThis :: Integer -> Integer -> Integer
+addThis n x = if x ^ 2 /= n then 2 else 1
+
+factors1 :: Integer -> Integer
+factors1 n = sum [addThis n x | x <- [1..integerSqrt n], mod n x == 0]
 
 main :: IO ()
 main = do print "Enter the number:"
